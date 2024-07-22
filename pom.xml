@@ -176,8 +176,8 @@
 					<jdkToolchain>
 						<version>[1.6,8)</version>
 					</jdkToolchain>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -201,6 +201,33 @@
 				<configuration>
 					<includes>ij/**</includes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<configuration>
+							<target>
+								<!-- Define an Ant task to copy the files -->
+								<copy todir="${basedir}/target/classes/plugins">
+									<fileset dir="${basedir}/target/classes">
+										<include name="*_.class"/>
+									</fileset>
+								</copy>
+								<delete>
+									<fileset dir="${basedir}/target/classes">
+										<include name="*_.class"/>
+									</fileset>
+								</delete>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
